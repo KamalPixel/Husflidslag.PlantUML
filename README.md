@@ -27,13 +27,28 @@ Kunde: Østfold Husflidslag, ved Silja Holhjem.
 | Sekvensdiagram | `docs/diagrams/paamelding.puml` | Flyten når en bruker melder seg på et kurs |
 | Flytdiagram | `docs/diagrams/brukerflyt.puml` | Brukerens vei fra nettsiden til bekreftet påmelding |
 
+### Sekvensdiagram: påmelding til kurs
+
+![Sekvensdiagram som viser flyten når en bruker melder seg på et kurs](docs/images/paamelding.png)
+
+Diagrammet viser begge utfallene av en påmelding: bekreftet plass hvis kurset har ledig
+kapasitet, og venteliste hvis det er fullt.
+
 ## Slik genererer du diagrammene
 
 Diagrammene skrives i PlantUML og kan vises på tre måter:
 
 - Lim inn koden i nettleseren på plantuml.com
 - Installer PlantUML-utvidelsen i VS Code og bruk forhåndsvisning
-- Kjør lokalt med `plantuml docs/diagrams/*.puml -o ../images`
+- Kjør lokalt med Java og `plantuml.jar` (lastes ned fra plantuml.com/download):
+
+```
+java -jar plantuml.jar -charset UTF-8 -tpng docs/diagrams/*.puml -o ../images
+```
+
+`-charset UTF-8` er nødvendig for at æ, ø og å skal komme riktig ut. Bildene i
+`docs/images/` er generert, ikke håndlaget — kjør kommandoen på nytt og commit resultatet
+hver gang en `.puml`-fil endres, ellers viser README et utdatert diagram.
 
 ## Avgrensninger
 
