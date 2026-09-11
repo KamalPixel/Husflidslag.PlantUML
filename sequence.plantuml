@@ -1,0 +1,35 @@
+@startuml
+
+actor Bruker
+participant WebClient
+participant InputValidator
+participant CourseEnrollment
+participant DatabaseHandler
+database BookingDatabase
+participant NotificationHandler
+
+Bruker -> WebClient: Fyller ut deltakerskjema
+WebClient -> InputValidator: POST /paamelding (kursID, navn, epost, telefon)
+InputValidator -> CourseEnrollment: validert forespørsel
+
+CourseEnrollment -> DatabaseHandler: hentKurs(kursID)
+DatabaseHandler -> BookingDatabase: SELECT maksDeltakere
+BookingDatabase --> DatabaseHandler: maksDeltakere
+DatabaseHandler --> CourseEnrollment: kurs
+
+CourseEnrollment -> DatabaseHandler: tellPaameldinger(kursID)
+DatabaseHandler --> CourseEnrollment: antall
+
+alt ledig plass
+  CourseEnrollment -> DatabaseHandler: lagrePaamelding(status = "bekreftet")
+  DatabaseHandler -> BookingDatabase: INSERT
+  CourseEnrollment -> NotificationHandler: sendBekreftelse(epost, kursinfo)
+  CourseEnrollment --> WebClient: bekreftet
+else fullt
+  CourseEnrollment -> DatabaseHandler: lagrePaamelding(status = "venteliste")
+  CourseEnrollment -> NotificationHandler: sendVentelistevarsel(epost)
+  CourseEnrollment --> WebClient: venteliste
+end
+
+WebClient --> Bruker: Viser resultat
+@enduml
