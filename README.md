@@ -29,7 +29,7 @@ Kunde: Østfold Husflidslag, ved Silja Holhjem.
 
 ### Sekvensdiagram: påmelding til kurs
 
-![Sekvensdiagram som viser flyten når en bruker melder seg på et kurs](docs/images/paamelding.png)
+![Sekvensdiagram som viser flyten når en bruker melder seg på et kurs](docs/images/paamelding_v2.png)
 
 Diagrammet viser begge utfallene av en påmelding: bekreftet plass hvis kurset har ledig
 kapasitet, og venteliste hvis det er fullt.

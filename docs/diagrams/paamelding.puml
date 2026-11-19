@@ -13,9 +13,9 @@ WebClient -> InputValidator: POST /paamelding (kursID, navn, epost, telefon)
 InputValidator -> CourseEnrollment: validert forespørsel
 
 CourseEnrollment -> DatabaseHandler: hentKurs(kursID)
-DatabaseHandler -> BookingDatabase: SELECT maksDeltakere
-BookingDatabase --> DatabaseHandler: maksDeltakere
-DatabaseHandler --> CourseEnrollment: kurs
+DatabaseHandler -> BookingDatabase: SELECT * FROM kurs WHERE id = kursID
+BookingDatabase --> DatabaseHandler: kursrad
+DatabaseHandler --> CourseEnrollment: kurs (inkl. maksDeltakere)
 
 CourseEnrollment -> DatabaseHandler: tellPaameldinger(kursID)
 DatabaseHandler --> CourseEnrollment: antall
